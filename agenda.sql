@@ -8,3 +8,11 @@ create table contatos(
     email varchar(50)
     );
 describe contatos;
+
+ /*CRUD CREATE*/
+ insert into contatos (nome, fone, email) values ('Bill Gates', '99999-9999', 'bill@outlook.com');
+ 
+ 
+ 
+ /*CRUD READ*/
+ select * from contatos;
