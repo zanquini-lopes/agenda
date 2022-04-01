@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.DAO;
 import model.JavaBeans;
 
-@WebServlet(urlPatterns = { "/Controller", "/main", "/insert" })
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -32,6 +32,8 @@ public class Controller extends HttpServlet {
 
 		} else if(action.equals("/insert")) {
 			novoContato(request, response); 
+		}else if(action.equals("/select")) {
+			listarContato(request, response); 
 		} else {
 			response.sendRedirect("index.html");
 		}
@@ -45,12 +47,12 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 		// Criando um objeto que ira receber os dados JavaBeans
 		ArrayList<JavaBeans> lista = dao.listarContatos();
-		
-		//Encaminhar a lista ao documento agenda.jsp
-		request.setAttribute("contatos",  lista);
+
+		// Encaminhar a lista ao documento agenda.jsp
+		request.setAttribute("contatos", lista);
 		RequestDispatcher rd = request.getRequestDispatcher("agenda.jsp");
 		rd.forward(request, response);
-		
+
 		// Teste de recebimento da lista
 //	for (int i = 0; i < lista.size(); i++) {
 //			System.out.println(lista.get(i).getIdcon());
@@ -60,7 +62,7 @@ public class Controller extends HttpServlet {
 //
 //		}
 	}
-	
+
 	// Novo Contato
 	protected void novoContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -72,13 +74,20 @@ public class Controller extends HttpServlet {
 		dao.inserirContato(contato);
 		// redirecionar para o documento agenda.jsp
 		response.sendRedirect("main");
-		
-		
-    // Teste de recebimento dos dados do formulário
+		// Teste de recebimento dos dados do formulário
 //		System.out.println(request.getParameter("nome"));
 //		System.out.println(request.getParameter("fone"));
 //		System.out.println(request.getParameter("email"));
+
+	}
+	// Editar Contato
+	protected void listarContato(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		//Recebimento do id do contato que será editado
+		String idcon = request.getParameter("idcon");
+		//System.out.println(idcon);
+		// Setar a variável JavaBeans
+		contato.setIdcon(idcon);
 	
-		
 	}
 }
