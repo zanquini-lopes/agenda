@@ -16,3 +16,11 @@ describe contatos;
  
  /*CRUD READ*/
  select * from contatos;
+ select * from contatos order by nome;
+ select * from contatos where idcon=1;
+ 
+ /*CRUD UPDATE*/
+ update contatos set nome='Bruce' where idcon =1;
+ 
+ 
+ 
