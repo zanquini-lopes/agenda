@@ -95,7 +95,14 @@ public class Controller extends HttpServlet {
 //		System.out.println(contato.getNome());
 //		System.out.println(contato.getFone());
 //		System.out.println(contato.getEmail());
-
+		// Setar os atributos do formulário com o conteúdo JavaBeans
+		request.setAttribute("idcon", contato.getIdcon());
+		request.setAttribute("nome", contato.getNome());
+		request.setAttribute("fone", contato.getFone());
+		request.setAttribute("email", contato.getEmail());
+		// Encaminhar ao documento editar.jsp
+		RequestDispatcher rd = request.getRequestDispatcher("editar.jsp");
+		rd.forward(request, response);
 		
 	
 	}
