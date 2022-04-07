@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.DAO;
 import model.JavaBeans;
 
-@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update" })
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/select", "/update", "/delete" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -30,12 +30,14 @@ public class Controller extends HttpServlet {
 		if (action.equals("/main")) {
 			contatos(request, response);
 
-		} else if(action.equals("/insert")) {
-			novoContato(request, response); 
-		}else if(action.equals("/select")) {
-			listarContato(request, response); 
-		}else if(action.equals("/update")) {
-			editarContato(request, response); 
+		} else if (action.equals("/insert")) {
+			novoContato(request, response);
+		} else if (action.equals("/select")) {
+			listarContato(request, response);
+		} else if (action.equals("/update")) {
+			editarContato(request, response);
+		} else if (action.equals("/delete")) {
+			removerContato(request, response);
 		} else {
 			response.sendRedirect("index.html");
 		}
@@ -108,7 +110,7 @@ public class Controller extends HttpServlet {
 		rd.forward(request, response);
 
 	}
-	
+
 	protected void editarContato(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// Teste de recebimento
@@ -127,4 +129,21 @@ public class Controller extends HttpServlet {
 		response.sendRedirect("main");
 
 	}
+	
+	// Remover um contato
+	protected void removerContato(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		//Recebimento do id do contato a ser excluído (validador.js)
+		String idcon = request.getParameter("idcon");
+		// Teste de recebimento
+		// System.out.println(idcon);
+		// Setar a Variavel no JavaBeans
+		contato.setIdcon(idcon);
+		// executar o método deletarContato (DAO) passando o objeto contato
+		dao.deletarContato(contato);
+		// redirecionar para o documento agenda.jsp (atualizando as alterações)
+		response.sendRedirect("main");
+		
+	}
 }
+
