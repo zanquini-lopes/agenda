@@ -1,6 +1,8 @@
 /**
- * Validação de formulário
+ * Validacao de formulario
+ *
  * @author Rodrigo Zanquini Lopes
+*
  */
  
  function validar() {

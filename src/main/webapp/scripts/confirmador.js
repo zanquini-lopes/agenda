@@ -1,12 +1,13 @@
 /**
- * Confirmação de exclusão de um contato 
+ * Confirmacao de exclusao de um contato 
+ *
  *@author Rodrigo Zanquini Lopes
+ *@param idcon
  */
- 
- function confirmar(idcon){
+
+function confirmar(idcon) {
 	let resposta = confirm("Confirma a exclusão deste contato?")
-	if (resposta === true){
-		//alert(idcon)
-		window.location.href= "delete?idcon=" + idcon
+	if (resposta === true) {
+		window.location.href = "delete?idcon=" + idcon
 	}
 }
