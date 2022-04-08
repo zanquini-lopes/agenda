@@ -6,12 +6,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DAO.
+ */
 public class DAO {
+	
+	/** The driver. */
 	private String driver = "com.mysql.cj.jdbc.Driver";
+	
+	/** The url. */
 	private String url = "jdbc:mysql://127.0.0.1:3306/dbagenda?useTimezone=true&serverTimezone=UTC";
+	
+	/** The user. */
 	private String user = "root";
+	
+	/** The password. */
 	private String password = "B@nc0d3d4d0s";
 
+	/**
+	 * Conectar.
+	 *
+	 * @return the connection
+	 */
 	private Connection conectar() {
 		Connection con = null;
 		try {
@@ -25,7 +42,11 @@ public class DAO {
 
 	}
 
-	/** CRUD CREATE **/
+	/**
+	 *  CRUD CREATE *.
+	 *
+	 * @param contato the contato
+	 */
 	public void inserirContato(JavaBeans contato) {
 		String create = "insert into contatos (nome, fone, email) values (?, ?, ?)";
 		try {
@@ -41,7 +62,11 @@ public class DAO {
 		}
 	}
 
-	/** CRUD READ **/
+	/**
+	 *  CRUD READ *.
+	 *
+	 * @return the array list
+	 */
 	public ArrayList<JavaBeans> listarContatos() {
 		ArrayList<JavaBeans> contatos = new ArrayList<>();
 		String read = "Select * from contatos order by nome";
@@ -64,7 +89,11 @@ public class DAO {
 		}
 	}
 
-	/** CRUD UPDDATE **/
+	/**
+	 *  CRUD UPDDATE *.
+	 *
+	 * @param contato the contato
+	 */
 	public void selecionnarContato(JavaBeans contato) {
 		String read2 = "select * from contatos where idcon=?";
 		try {
@@ -84,6 +113,11 @@ public class DAO {
 		}
 	}
 
+	/**
+	 * Alterar contato.
+	 *
+	 * @param contato the contato
+	 */
 	public void alterarContato(JavaBeans contato) {
 		String update = "update contatos set nome=?, fone=?, email=? where idcon=?";
 		try {
@@ -100,7 +134,11 @@ public class DAO {
 		}
 	}
 
-	/** CRUD DELETE **/
+	/**
+	 *  CRUD DELETE *.
+	 *
+	 * @param contato the contato
+	 */
 	public void deletarContato(JavaBeans contato) {
 		String delete = "delete from contatos where idcon=?";
 		try {
