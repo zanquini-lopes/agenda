@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 // TODO: Auto-generated Javadoc
@@ -11,18 +12,52 @@ import java.util.ArrayList;
  * The Class DAO.
  */
 public class DAO {
-	
-	/** The driver. */
-	private String driver = "com.mysql.cj.jdbc.Driver";
-	
-	/** The url. */
-	private String url = "jdbc:mysql://127.0.0.1:3306/dbagenda?useTimezone=true&serverTimezone=UTC";
-	
-	/** The user. */
-	private String user = "root";
-	
-	/** The password. */
-	private String password = "B@nc0d3d4d0s";
+
+//	// MYSQL
+//	private String driver = "com.mysql.cj.jdbc.Driver";
+//	private String url = "jdbc:mysql://127.0.0.1:3306/dbagenda?useTimezone=true&serverTimezone=UTC";
+//	private String user = "root";
+//	private String password = "B@nc0d3d4d0s";
+
+	// H2
+	static final String JDBC_DRIVER = "org.h2.Driver";
+	static final String DB_URL = "jdbc:h2:~/test";
+	static final String USER = "sa";
+	static final String PASS = "";
+
+	/**
+	 * H2 CRIACAO DO BD
+	 */
+
+	public static void main(String[] args) {
+		Connection con = null;
+		Statement pst = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+			con = DriverManager.getConnection(DB_URL, USER, PASS);
+			pst = con.createStatement();
+			String sql = "CREATE TABLE IF NOT EXISTS CONTATOS" + "(idcon int primary key auto_increment, "
+					+ " nome varchar(50) not null, " + " fone varchar(15) not null, " + " email varchar(50))";
+			pst.executeUpdate(sql);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (pst != null)
+					pst.close();
+			} catch (Exception e2) {
+				System.out.println(e2);
+			}
+			try {
+				if (con != null)
+					con.close();
+
+			} catch (Exception e3) {
+				System.out.println(e3);
+			}
+
+		}
+	}
 
 	/**
 	 * Conectar.
@@ -32,8 +67,8 @@ public class DAO {
 	private Connection conectar() {
 		Connection con = null;
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, user, password);
+			Class.forName(JDBC_DRIVER);
+			con = DriverManager.getConnection(DB_URL, USER, PASS);
 			return con;
 		} catch (Exception e) {
 			System.out.println(e);
@@ -43,7 +78,7 @@ public class DAO {
 	}
 
 	/**
-	 *  CRUD CREATE *.
+	 * CRUD CREATE *.
 	 *
 	 * @param contato the contato
 	 */
@@ -63,7 +98,7 @@ public class DAO {
 	}
 
 	/**
-	 *  CRUD READ *.
+	 * CRUD READ *.
 	 *
 	 * @return the array list
 	 */
@@ -90,7 +125,7 @@ public class DAO {
 	}
 
 	/**
-	 *  CRUD UPDDATE *.
+	 * CRUD UPDDATE *.
 	 *
 	 * @param contato the contato
 	 */
@@ -135,7 +170,7 @@ public class DAO {
 	}
 
 	/**
-	 *  CRUD DELETE *.
+	 * CRUD DELETE *.
 	 *
 	 * @param contato the contato
 	 */
